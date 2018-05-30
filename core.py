@@ -13,9 +13,6 @@ def update_board(board,policy,player_flag):
         print("you are placing a chess on a unavaliable position")
     return result#since we have to try the possible policy,this will return a new board with updated info
 
-def get_avaliable_policy(board):
-    return [x for x in range(9) if board[x]==0]
-
 def who_is_win(board):
     result = 0
     if (board[0]+board[1]+board[2]==3 or board[3]+board[4]+board[5]==3 or board[6]+board[7]+board[8]==3):
@@ -41,16 +38,13 @@ def who_is_win(board):
 def get_game_state(board):
     return ((0 in board),who_is_win(board))
 
-def get_the_best_policy(board,player_flag,opt_func = lambda x : max(x),):
-    possible_policies = get_avaliable_policy(board)
-    result = []
-    for policy in possible_policies:
-        new_board = update_board(board,policy)
-        (has_empty_position,winner) = get_game_state(new_board)
-        if ((not has_empty_position) or winner != 0):
-            result.append((policy,winner*10/player_flag))
-        else:
-            (p,r)=get_the_best_policy(new_board,min if opt_func==max else max,player_flag )
-            result.append((policy,r))
-    return None if result == [] else opt_func(result,key=lambda x: x[1])
-    
+def print_board(board):
+    format_dict = {
+        0:'-',
+        1:'O',
+        -1:'X'
+    }
+    formatted_board = [format_dict[x] for x in board]
+    print(formatted_board[0],formatted_board[1],formatted_board[2])
+    print(formatted_board[3],formatted_board[4],formatted_board[5])
+    print(formatted_board[6],formatted_board[7],formatted_board[8])

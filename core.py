@@ -1,11 +1,28 @@
 #the ai is 1 and enemy is -1
-FIRST_HAND=1
-LAST_HAND=-1
+FIRST_HAND = 1
+LAST_HAND = -1
 
 def new_board():
+    """
+    Return a list representing an empty board
+
+    Returns:
+    list: [0, 0, ... 0]
+    """
     return [0]*9
 
-def update_board(board,policy,player_flag):
+def update_board(board, policy, player_flag):
+    """
+    Return a new updated board with board, policy, and player_flag
+
+    Parameters:
+    board (list): the list with size 9 representing the board
+    policy (int): the integer representing the position of the ply
+    player_flag(int): the value of the player, 1 for first hand, -1 for last hand
+
+    Returns:
+    list: a new list representing the updated board
+    """
     result = [i for i in board]
     if (result[policy]==0):
         result[policy]=player_flag
@@ -14,6 +31,16 @@ def update_board(board,policy,player_flag):
     return result#since we have to try the possible policy,this will return a new board with updated info
 
 def who_is_win(board):
+    """
+    Determine whether the game ends and the winner if it ends
+
+    Parameters:
+    board(list): the list with size 9 representing the board
+
+    Returns:
+    int: 1 if first hand is the winner, -1 if the last hand is the winner,
+         0 if tie or not finished
+    """
     result = 0
     if (board[0]+board[1]+board[2]==3 or board[3]+board[4]+board[5]==3 or board[6]+board[7]+board[8]==3):
         result = 1

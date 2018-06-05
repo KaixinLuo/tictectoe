@@ -1,7 +1,8 @@
 #the ai is 1 and enemy is -1
 FIRST_HAND = 1
 LAST_HAND = -1
-
+SELF=1
+ENEMY=-1
 def new_board():
     """
     Return a list representing an empty board
@@ -11,7 +12,7 @@ def new_board():
     """
     return [0]*9
 
-def update_board(board, policy, player_flag):
+def new_board(board, policy, player_flag):
     """
     Return a new updated board with board, policy, and player_flag
 

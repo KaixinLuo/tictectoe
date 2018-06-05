@@ -30,6 +30,18 @@ def update_board(board, policy, player_flag):
         print("you are placing a chess on a unavaliable position")
     return result#since we have to try the possible policy,this will return a new board with updated info
 
+def available_ply(board):
+    """
+    Return a list contains all the available positions on the board
+
+    Parameters:
+    board (list): the list with size 9 representing the board
+
+    Returns:
+    list: a list containing all the positions available on the board
+    """
+    return [i for i in range(9) if board[i] == 0]
+
 def who_is_win(board):
     """
     Determine whether the game ends and the winner if it ends
@@ -63,7 +75,7 @@ def who_is_win(board):
     return result
 
 def get_game_state(board):
-    return ((0 in board),who_is_win(board))
+    return ((0 in board), who_is_win(board))
 
 def print_board(board):
     format_dict = {

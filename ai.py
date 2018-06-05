@@ -1,9 +1,6 @@
-<<<<<<< HEAD
-=======
 import math
 
 import game
->>>>>>> 44f9edd7009c75442f31e547ecee0cffc88d81ce
 import core
 
 
@@ -24,7 +21,6 @@ def get_the_best_policy(board,player_flag,opt_func = lambda x : max(x),):
             (p,r)=get_the_best_policy(new_board,min if opt_func==max else max,player_flag )
             result.append((policy,r))
     return None if result == [] else opt_func(result,key=lambda x: x[1])
-<<<<<<< HEAD
 '''
 def best_policy_and_util(board):
     possible_policies =available_policy(board)
@@ -55,7 +51,6 @@ def worst_policy_and_util(board):
                 worst_policy = policy
                 max_util=temp_util
     return (worst_policy,max_util)
-=======
 
 def max_utility(board):
     """
@@ -113,4 +108,3 @@ def utility(board):
         return -10
     else:
         return 0
->>>>>>> 44f9edd7009c75442f31e547ecee0cffc88d81ce

@@ -12,7 +12,7 @@ def new_board():
     """
     return [0]*9
 
-def new_board(board, policy, player_flag):
+def apply_policy(board, policy, player_flag):
     """
     Return a new updated board with board, policy, and player_flag
 

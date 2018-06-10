@@ -1,6 +1,4 @@
 import math
-
-import game
 import core
 
 
@@ -30,7 +28,7 @@ def best_policy_and_util(board):
     max_util = winner*10
     if (has_empty and winner == 0 ):
         for policy in possible_policies:
-            image_board = core.new_board(board,policy,core.ENEMY)
+            image_board = core.apply_policy(board,policy,core.ENEMY)
             (_ , temp_util) = worst_policy_and_util(image_board)
             if(temp_util>max_util):
                 best_policy = policy
@@ -45,12 +43,12 @@ def worst_policy_and_util(board):
     min_util = -winner*10
     if (has_empty and winner == 0 ):
         for policy in possible_policies:
-            image_board = core.new_board(board,policy,core.SELF)
+            image_board = core.apply_policy(board,policy,core.SELF)
             (_ , temp_util) =best_policy_and_util(image_board)
             if(temp_util<min_util):
                 worst_policy = policy
-                max_util=temp_util
-    return (worst_policy,max_util)
+                min_util=temp_util
+    return (worst_policy,min_util)
 
 def max_utility(board):
     """
@@ -67,7 +65,7 @@ def max_utility(board):
         return utility(board)
     else:
         value = -math.inf
-        for action in get_available_policy(board):
+        for action in available_policy(board):
             value = max(value, mix_utility(game.update_board(action)))
         return value
 
@@ -86,7 +84,7 @@ def min_utility(board):
         return utility(board)
     else:
         value = math.inf
-        for action in get_available_policy(board):
+        for action in available_policy(board):
             value = min(value, max_utility(game.update_board(action)))
         return value
 

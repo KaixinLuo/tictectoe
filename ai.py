@@ -34,6 +34,26 @@ def worst_policy_and_util(board):
                 min_util=temp_util
     return (worst_policy,min_util)
 
+def minimax_decision(board):
+    """
+    Returns the action that gives the maximum utility
+
+    Parameters:
+    board (list): A list of size 9 representing the game board
+
+    Returns:
+    int: a value from 0 - 9 representing the position on the game board that gives the max utility
+    """
+    action_max = 0
+    utility_max = min_utility(board)
+    for action in range(1, 9):
+        curr_min_utility = min_utility(core.apply_policy(board, i, 1))
+        if curr_min_utility > utility_max:
+            utility_max = curr_min_utility
+            action_max = action
+    return action_max
+    
+
 def max_utility(board):
     """
     Returns the max utility value given a board

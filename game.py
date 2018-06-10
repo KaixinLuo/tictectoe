@@ -1,6 +1,6 @@
 import core
 import player
-class game:
+class Game:
 
     """
     class representing a game state for tic-tac-toe
@@ -24,7 +24,7 @@ class game:
         self.lasthand=player.Bot(core.LAST_HAND)
 
     def initialize(self):
-        if (input("do you would like to take the first hand?(y//n)")=='n'):
+        if (input("do you would like to take the first hand?(y/n)")=='n'):
             self.firsthand = player.Bot(core.FIRST_HAND)
             self.lasthand = player.Human(core.LAST_HAND)
 
@@ -34,12 +34,15 @@ class game:
 
         Parameters:
         """
+        is_first_hand_turn = True
         while(core.is_playable(self.board)):
-            is_first_hand_turn = True
+            core.print_board(self.board)
+            
             if (is_first_hand_turn):
                 self.firsthand.play(self.board)
             else :
                 self.lasthand.play(self.board)
+            is_first_hand_turn = not is_first_hand_turn
         else:
             (_,winner) = core.get_game_state(self.board)
             if (winner == self.firsthand.label):

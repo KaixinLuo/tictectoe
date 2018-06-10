@@ -10,9 +10,11 @@ class Bot:
         (policy,util)=best_policy_and_util(own_vision)
         board[policy]=self.label
 
-class human_player(object):
+class Human(object):
     def __init__ (self,label):
         self.label = label
     def play(board):
-        print ("please take you action:")
-        while (policy = int(input())>8):
+        while (policy = int(input("please take you action:"))>8):
+            print("Action is not valid, try another one:")
+        board[policy]=self.label
+        

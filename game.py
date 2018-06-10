@@ -35,7 +35,7 @@ class game:
         Parameters:
         """
         while(core.is_playable(self.board)):
-            is_first_hand_turn = true
+            is_first_hand_turn = True
             if (is_first_hand_turn):
                 self.firsthand.play(self.board)
             else :

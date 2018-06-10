@@ -78,6 +78,10 @@ def who_is_win(board):
 def get_game_state(board):
     return ((0 in board), who_is_win(board))
 
+def is_playable(board):
+    (has_empty,winner)=get_game_state(board)
+    return has_empty and (winner == 0)
+
 def print_board(board):
     format_dict = {
         0:'-',

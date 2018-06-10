@@ -1,5 +1,5 @@
 import core
-
+import player
 class game:
 
     """
@@ -20,16 +20,31 @@ class game:
         create a new game
         """
         self.board = core.new_board()
-        self.player = 1
-        self.step = 1
+        self.firsthand=player.Human(core.FIRST_HAND)
+        self.lasthand=player.Bot(core.LAST_HAND)
 
-    def ply(self, position):
+    def initialize(self):
+        if (input("do you would like to take the first hand?(y//n)")=='n'):
+            self.firsthand = player.Bot(core.FIRST_HAND)
+            self.lasthand = player.Human(core.LAST_HAND)
+
+    def ply(self):
         """
         make a ply
 
         Parameters:
-        position (int): position range from 0 - 8
         """
-        self.board = update_board(self.board, position, self.player)
-        self.player = -self.player
-        self.step += 1
+        while(core.is_playable(self.board)):
+            is_first_hand_turn = true
+            if (is_first_hand_turn):
+                self.firsthand.play(self.board)
+            else :
+                self.lasthand.play(self.board)
+        else:
+            (_,winner) = core.get_game_state(self.board)
+            if (winner == self.firsthand.label):
+                print ("first hand win")
+            elif(winner == self.lasthand):
+                print("last hand win")
+            else:
+                print ("tie!")

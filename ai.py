@@ -66,7 +66,7 @@ def max_utility(board):
     else:
         value = -math.inf
         for action in available_policy(board):
-            value = max(value, mix_utility(game.update_board(action)))
+            value = max(value, min_utility(game.update_board(action)))
         return value
 
 def min_utility(board):

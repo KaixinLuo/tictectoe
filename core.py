@@ -3,6 +3,10 @@ FIRST_HAND = 1
 LAST_HAND = -1
 SELF=1
 ENEMY=-1
+INIT_MAX_UTIL = -100
+INIT_MIN_UTIL = 100
+INIT_POLICY = -100
+import copy
 def new_board():
     """
     Return a list representing an empty board
@@ -24,12 +28,14 @@ def apply_policy(board, policy, player_flag):
     Returns:
     list: a new list representing the updated board
     """
-    result = [i for i in board]
+    result = copy.deepcopy(board)
     if (result[policy]==0):
         result[policy]=player_flag
     else:
         print("you are placing a chess on a unavaliable position")
     return result#since we have to try the possible policy,this will return a new board with updated info
+def is_policy_avaliable(board,position):
+    return (position<=8)and(board[position] == 0)
 
 def available_ply(board):
     """

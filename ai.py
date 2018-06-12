@@ -3,35 +3,54 @@ import core
 
 def available_policy(board):
     return [x for x in range(9) if board[x]==0]
+"""
+def util(board,label,decay_rate = 0.7):
+    (has_empty,winner)=core.get_game_state(board)
+    accu_util = winner*10
+    if (has_empty and winner == 0):
+        possible_policies =available_policy(board)
+        for policy in possible_policies:
+            image_board = core.apply_policy(board,policy,label)
+            accu_util+=decay_rate*util(image_board,-label)
+    return accu_util
 
-def best_policy_and_util(board):
+
+"""
+def best_policy_and_util(board,label):
     possible_policies =available_policy(board)
-    best_policy = -1
+    best_policy = core.INIT_POLICY
     
     (has_empty,winner)=core.get_game_state(board)
-    max_util = winner*10
+    max_util = core.INIT_MAX_UTIL
     if (has_empty and winner == 0 ):
+        
         for policy in possible_policies:
-            image_board = core.apply_policy(board,policy,core.ENEMY)
-            (_ , temp_util) = worst_policy_and_util(image_board)
-            if(temp_util>max_util):
+            image_board = core.apply_policy(board,policy,label)
+            (_ , r) = worst_policy_and_util(image_board,-label)
+            if(r>max_util):
                 best_policy = policy
-                max_util=temp_util
+                max_util=r
+    else:
+        max_util = winner*10
     return (best_policy,max_util)
 
-def worst_policy_and_util(board):
+def worst_policy_and_util(board,label):
     possible_policies = available_policy(board)
-    worst_policy = -1
+    worst_policy = core.INIT_POLICY
     
     (has_empty,winner)=core.get_game_state(board)
-    min_util = -winner*10
+    min_util = core.INIT_MIN_UTIL
     if (has_empty and winner == 0 ):
+        
         for policy in possible_policies:
-            image_board = core.apply_policy(board,policy,core.SELF)
-            (_ , temp_util) =best_policy_and_util(image_board)
+            image_board = core.apply_policy(board,policy,label)
+            (_ , temp_util) =best_policy_and_util(image_board,-label)
             if(temp_util<min_util):
                 worst_policy = policy
                 min_util=temp_util
+    else:
+        min_util = winner*10
+        
     return (worst_policy,min_util)
 
 def minimax_decision(board):
@@ -46,6 +65,7 @@ def minimax_decision(board):
     """
     action_max = 0
     utility_max = min_utility(board)
+    i = 0
     for action in range(1, 9):
         curr_min_utility = min_utility(core.apply_policy(board, i, 1))
         if curr_min_utility > utility_max:

@@ -34,10 +34,9 @@ class Game:
 
         Parameters:
         """
+        core.print_board(self.board)
         is_first_hand_turn = True
         while(core.is_playable(self.board)):
-            core.print_board(self.board)
-            
             if (is_first_hand_turn):
                 self.firsthand.play(self.board)
             else :
@@ -47,7 +46,7 @@ class Game:
             (_,winner) = core.get_game_state(self.board)
             if (winner == self.firsthand.label):
                 print ("first hand win")
-            elif(winner == self.lasthand):
+            elif(winner == self.lasthand.label):
                 print("last hand win")
             else:
                 print ("tie!")

@@ -1,7 +1,7 @@
 import ai
 import core 
 
-class Bot:
+class Bot(object):
     def __init__(self,label):
         self.label = label
     
